@@ -75,6 +75,15 @@ contract('StarNotary', async (accs) => {
     assert.equal(await instance.ownerOf(starId2), user1);
   });
 
+  it('lets a star token be transferred from one owner to another account', async() => {
+    let user1 = accounts[1];
+    let user2 = accounts[2];
+    let starId = 8;
+    await instance.createStar('star', starId, {from: user1});
+    await instance.transferStar(user2, starId, {from: user1});
+    assert.equal(await instance.ownerOf(starId), user2);
+  });
+
 
   it('has a name', async() => {
       assert.equal(await instance.name(), 'JG star registry');
@@ -84,7 +93,3 @@ contract('StarNotary', async (accs) => {
       assert.equal(await instance.symbol(), 'JGSR');
   })
 
-  // Write Tests for:
-
-// 2) 2 users can exchange their stars.
-// 3) Stars Tokens can be transferred from one address to another.
