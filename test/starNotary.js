@@ -63,8 +63,16 @@ contract('StarNotary', async (accs) => {
     assert.equal(balanceOfUser2BeforeTransaction.sub(balanceAfterUser2BuysStar), starPrice);
   });
 
+
+  it('has a name', async() => {
+      assert.equal(await instance.name(), 'JG star registry');
+  })
+
+  it('has a symbol', async() => {
+      assert.equal(await instance.symbol(), 'JGSR');
+  })
+
   // Write Tests for:
 
-// 1) The token name and token symbol are added properly.
 // 2) 2 users can exchange their stars.
 // 3) Stars Tokens can be transferred from one address to another.

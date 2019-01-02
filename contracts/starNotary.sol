@@ -7,10 +7,13 @@ contract StarNotary is ERC721 {
     struct Star {
         string name;
     }
+    function name() external pure returns (string) {
+        return "JG star registry";
+    }
 
-//  Add a name and a symbol for your starNotary tokens
-
-//
+    function symbol() external pure returns (string) {
+        return "JGSR";
+    }
 
     mapping(uint256 => Star) public tokenIdToStarInfo;
     mapping(uint256 => uint256) public starsForSale;
@@ -26,6 +29,10 @@ contract StarNotary is ERC721 {
 // Add a function lookUptokenIdToStarInfo, that looks up the stars using the Token ID, and then returns the name of the star.
 
 //
+
+    function lookUptokenIdToStarInfo(uint256 _tokenId) public view returns (string) {
+        return tokenIdToStarInfo[_tokenId].name;
+    }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {
         require(ownerOf(_tokenId) == msg.sender);
