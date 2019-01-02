@@ -40,6 +40,15 @@ contract StarNotary is ERC721 {
         starsForSale[_tokenId] = _price;
     }
 
+    function exchangeStars(uint256 _firstTokenId, uint256 _secondTokenId) public {
+        address owner1 = ownerOf(_firstTokenId);
+        address owner2 = ownerOf(_secondTokenId);
+
+        _removeTokenFrom(owner1, _firstTokenId);
+        _addTokenTo(owner2, _firstTokenId);
+        _removeTokenFrom(owner2, _secondTokenId);
+        _addTokenTo(owner1, _secondTokenId);
+    }
     function buyStar(uint256 _tokenId) public payable {
         require(starsForSale[_tokenId] > 0);
 

@@ -63,6 +63,18 @@ contract('StarNotary', async (accs) => {
     assert.equal(balanceOfUser2BeforeTransaction.sub(balanceAfterUser2BuysStar), starPrice);
   });
 
+  it('lets two owners exchange their stars', async() => {
+    let user1 = accounts[1];
+    let user2 = accounts[2];
+    let starId1 = 6;
+    let starId2 = 7;
+    await instance.createStar('first star', starId1, {from: user1});
+    await instance.createStar('second star', starId2, {from: user2});
+    await instance.exchangeStars(starId1, starId2);
+    assert.equal(await instance.ownerOf(starId1), user2);
+    assert.equal(await instance.ownerOf(starId2), user1);
+  });
+
 
   it('has a name', async() => {
       assert.equal(await instance.name(), 'JG star registry');
