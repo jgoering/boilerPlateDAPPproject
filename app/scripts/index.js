@@ -25,6 +25,21 @@ const createStar = async () => {
   App.setStatus("New Star Owner is " + account + ".");
 }
 
+const transferStar = async () => {
+  const instance = await StarNotary.deployed();
+  const recipient = document.getElementById("recipient").value;
+  const id = document.getElementById("starIdToTransfer").value;
+  await instance.transferStar(recipient, id, {from: account});
+  App.setStatus("New Star Owner is " + recipient + ".");
+}
+
+const lookupStar = async () => {
+  const instance = await StarNotary.deployed();
+  const id = document.getElementById("starIdToLookup").value;
+  let name = await instance.lookUptokenIdToStarInfo(id, {from: account});
+  App.setStatus("The star with the id '" + id + "' is named '" + name + "'.");
+}
+
 // Add a function lookUp to Lookup a star by ID using tokenIdToStarInfo()
 
 //
@@ -61,6 +76,12 @@ const App = {
 
   createStar: function () {
     createStar();
+  },
+  transferStar: function () {
+    transferStar();
+  },
+  lookupStar: function () {
+      lookupStar();
   },
 
 }
